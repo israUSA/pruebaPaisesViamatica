@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Pais } from '../../interfaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
+import { region } from '../../interfaces/region.interface';
 
 @Component({
   selector: 'app-region',
@@ -14,7 +15,7 @@ export class RegionComponent {
     'Ingresa una region: africa, americas, asia, europa o oceania';
   hayError: boolean = false;
   paisesLista: Pais[] = [];
-  regiones: string[] = [];
+  regiones: region[] = [];
   queryBusqueda: string = '';
   numeroDeSugerencias: number = 10;
 
@@ -34,23 +35,5 @@ export class RegionComponent {
     });
   }
 
-  sugerencias(nombre: string) {
-    this.hayError = false;
 
-    // Verificar si el parámetro nombre está vacío para proceder a limpiar las sugerencias
-    if (!nombre.trim()) {
-      this.regiones = [];
-      return;
-    }
-
-    this.paisService.cargarRegiones().subscribe({
-      next: (regiones) => {
-        this.regiones = regiones.slice(0, this.numeroDeSugerencias);
-      },
-
-      error: (error) => {
-        this.regiones = [];
-      },
-    });
-  }
 }

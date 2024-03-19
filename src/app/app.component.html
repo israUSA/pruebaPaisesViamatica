@@ -1,9 +1,12 @@
-<div class="row container mt-4">
-  <div class="col-md-3 col-sm-6 col-12">
-    <app-side-menu></app-side-menu>
-  </div>
+<app-side-menu class="max-w-screen w-auto	 align-items-center"></app-side-menu>
 
-  <div class="col">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<router-outlet></router-outlet>
+<ngx-ui-loader
+bgsColor="#fbbf24"
+fgsColor="#fbbf24"
+pbColor="#fbbf24"
+text="Espere un momento :)"
+fgsType="ball-spin-clockwise"
+>
+</ngx-ui-loader>
+

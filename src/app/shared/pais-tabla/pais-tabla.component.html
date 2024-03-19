@@ -1,0 +1,72 @@
+<div class="flex flex-row flex-wrap">
+  <div class="flex align-items-center justify-content-center">
+    <label class="font-bold">Numero de resultados</label>
+  </div>
+  <div class="flex align-items-center justify-content-center">
+    <p-inputNumber
+      class="col-12"
+      [(ngModel)]="numeroResultados"
+      inputId="minmax"
+      [min]="5"
+      [max]="15"
+    ></p-inputNumber>
+  </div>
+</div>
+
+<p-dataView
+  #dv
+  [value]="paisesLista"
+  [rows]="numeroResultados"
+  [paginator]="true"
+>
+  <ng-template let-paisesLista pTemplate="list">
+    <div class="grid grid-nogutter">
+      <div class="col-12" *ngFor="let pais of paisesLista; let first = first">
+        <div
+          class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4 animate__animated animate__fadeInLeft"
+          [ngClass]="{ 'border-top-1 surface-border': !first }"
+        >
+          <img
+            class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+            [src]="pais.flags.svg"
+            [alt]="pais.cca2"
+          />
+          <div
+            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4"
+          >
+            <div
+              class="flex flex-column align-items-center sm:align-items-start gap-3"
+            >
+              <div class="text-2xl font-bold text-900">
+                {{ pais.name.common }}
+              </div>
+              <div class="flex flex-column gap-2">
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-circle-fill" style="color: green"></i>
+                  <span class="font-semibold">{{ pais.capital }}</span>
+                </span>
+
+                <span class="flex align-items-center gap-2">
+                  <i class="pi pi-user"></i>
+                  <span class="font-semibold">{{
+                    pais.population | number
+                  }}</span>
+                </span>
+              </div>
+            </div>
+            <div
+              class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
+            >
+              <button
+                [routerLink]="['../', pais.cca2]"
+                pButton
+                icon="pi pi-plus"
+                class="md:align-self-end mb-2 p-button-rounded"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dataView>
