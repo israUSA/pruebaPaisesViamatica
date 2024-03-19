@@ -1,39 +1,32 @@
-<div *ngIf="!pais; else  divPais" class="alert alert-info">
-    <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
+<div class="grid mt-4 animate__animated animate__flipInY">
+  <div class="md:col-3 lg:mx-auto">
+    <p-card
+      [header]="pais?.name?.common"
+      [subheader]="pais?.capital"
+      [style]="{ width: '360px' }"
+    >
+      <ng-template pTemplate="header">
+        <img alt="Card" [src]="pais?.flags?.svg" />
+      </ng-template>
+      <p>
+        <strong>Poblacion: </strong> {{pais?.population|number}}
+      </p>
+      <p>
+        <strong>Codigo: </strong> {{pais?.cca2}}
+      </p>
+      <p>
+        <strong>Extension: </strong> {{pais?.area|number}} km2
+      </p>
+      <p>
+        <strong>Continente: </strong> {{pais?.continents}}
+      </p>
+      
+      <ng-template pTemplate="footer">
+        <a [href]="pais?.maps?.googleMaps" style="display: flex; justify-content: center;">
+          <p-button label="Ver en Google Maps" icon="pi pi-map-marker"></p-button>
+        </a>
+      </ng-template>
+      
+    </p-card>
+  </div>
 </div>
-
-<ng-template #divPais>
-    <div class="row">
-        <div class="col-12">
-            <h1>Pais: <small>{{pais?.name?.common}}</small></h1>
-    
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <h3>Bandera</h3>
-            <img [src]="pais?.flags?.svg" alt="pais.name.common" class="img-thumbnail">
-        </div>
-
-        <div class="col">
-            <h3>Informacion</h3>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <strong>Poblacion: </strong>{{pais?.population|number}}
-                </li>
-                <li class="list-group-item">
-                    <strong>Capital: </strong>{{pais?.capital}}
-                </li>
-                <li class="list-group-item">
-                    <strong>Codigo:</strong>{{pais?.cca2}}
-                </li>
-            </ul>
-        </div>
-    </div>
-
-</ng-template>

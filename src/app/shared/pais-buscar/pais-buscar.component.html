@@ -1,0 +1,45 @@
+<!-- <form class="row g-2" (ngSubmit)="buscar()" autocomplete="off">
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <input
+        class="form-control"
+        type="text"
+        name="termino"
+        [(ngModel)]="query"
+        (input)="teclaPresionada()"
+        [placeholder]="placeHolder"
+      />
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <button class="btn btn-primary w-100" (click)="buscar()">Buscar</button>
+    </div>
+  </form> -->
+
+<div class="card">
+  <span class="p-fluid">
+    <p-autoComplete
+      [placeholder]="placeHolder"
+      [suggestions]="resultadosSugeridos"
+      (completeMethod)="teclaPresionada($event)"
+      [(ngModel)]="query"
+      (keyup.enter)="buscar()"
+      (input)="inputBusqueda()"
+      field="nombre"
+    >
+    <ng-container *ngIf="router.url.includes('nombre')">
+      <ng-template let-pais pTemplate="item">
+        <div [routerLink]="['../', pais.cca2]" class="flex align-items-center gap-2">
+          <div>{{ pais.name.common }}</div>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <ng-container *ngIf="router.url.includes('region')">
+      <ng-template let-region pTemplate="item">
+        <div (click)="buscar()" class="flex align-items-center gap-2">
+          <div>{{ region.nombre}}</div>
+        </div>
+      </ng-template>
+    </ng-container>
+    </p-autoComplete>
+  </span>
+</div>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Pais } from '../../interfaces/pais.interface';
 import { PaisService } from '../../services/pais.service';
 import { Subscription } from 'rxjs';
+import { subregion } from '../../interfaces/subregion.interface';
 
 @Component({
   selector: 'app-subregion',
@@ -15,7 +16,7 @@ export class SubregionComponent {
     'Ingresa una subregion: Southern Europe, Eastern Africa, North America, Polynesia, etc';
   hayError: boolean = false;
   paisesLista: Pais[] = [];
-  subregiones: string[] = [];
+  subregiones: subregion[] = [];
   queryBusqueda: string = '';
   numeroDeSugerencias: number = 10;
 
@@ -35,21 +36,4 @@ export class SubregionComponent {
     });
   }
 
-  sugerencias(nombre: string) {
-    this.hayError = false;
-    // Verificar si el parámetro nombre está vacío para proceder a limpiar las sugerencias
-    if (!nombre.trim()) {
-      this.subregiones = [];
-      return;
-    }
-    this.paisService.cargarSubregiones().subscribe({
-      next: (subregiones) => {
-        this.subregiones = subregiones.slice(0, this.numeroDeSugerencias);
-      },
-
-      error: (error) => {
-        this.subregiones = [];
-      },
-    });
-  }
 }

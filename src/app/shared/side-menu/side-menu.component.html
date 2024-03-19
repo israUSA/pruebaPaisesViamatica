@@ -1,16 +1,20 @@
-<ul class="list-group">
-  <li
-    routerLink="pais/nombre"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-    class="list-group-item"
-  >
-    Buscar por nombre
-  </li>
-  <li routerLink="pais/region" routerLinkActive="active" class="list-group-item">
-    Buscar por región
-  </li>
-  <li routerLink="pais/subregion" routerLinkActive="active" class="list-group-item">
-    Buscar por subregion
-  </li>
-</ul>
+<div class="flex justify-content-center md:p-fluid animate__animated animate__fadeInDown ">
+  <p-buttonGroup class="md:p-fluid	">
+    <p-button
+      label="Buscar por nombre"
+      routerLink="pais/nombre"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    ></p-button>
+    <p-button
+      label="Buscar por región"
+      routerLink="pais/region"
+      routerLinkActive="active"
+    ></p-button>
+    <p-button
+      label="Buscar por subregion"
+      routerLink="pais/subregion"
+      routerLinkActive="active"
+    ></p-button>
+  </p-buttonGroup>
+</div>

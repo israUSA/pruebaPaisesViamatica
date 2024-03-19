@@ -2,51 +2,67 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pais } from '../interfaces/pais.interface';
-import { SUBREGIONES } from '../mocks/subregiones.mock';
-import { REGIONES } from '../mocks/regiones.mock';
+import { SUBREGIONES } from '../../shared/const/subregiones.const';
+import { REGIONES } from '../../shared/const/regiones.const';
+import { region } from '../interfaces/region.interface';
+import { subregion } from '../interfaces/subregion.interface';
+import {
+  BASE_URL_API_PAISES,
+  BUSQUEDA_RESPONSIVE_API_PAISES,
+  ENDPOINT_NOMBRE_API_PAISES,
+  ENDPOINT_REGION_API_PAISES,
+  ENDPOINT_SUBREGION_API_PAISES,
+} from '../../shared/const/endpoints.consts';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaisService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  private baseUrl:string = 'https://restcountries.com/v3.1';
-  private busquedaResponsive: string = 'fields=name,capital,population,cca2,flags,currencies';
-  private endpointNombre:string = 'name';
-  private endpointRegion:string = 'region';
-  private endpointSubregion:string = 'subregion';
-
-  getPaisPorCodigo(id:string):Observable<Pais>{
-
-    const url = `${this.baseUrl}/alpha/${id}?${this.busquedaResponsive}`
+  /*Se busca un pais por su codigo cca2, se obtiene solo name,capital,population,cca2,flags,currencies,area,maps,continents
+    Se usa en el componente ver-informacion */
+  getPaisPorCodigo(id: string): Observable<Pais> {
+    const url = `${BASE_URL_API_PAISES}/alpha/${id}?${BUSQUEDA_RESPONSIVE_API_PAISES}`;
     return this.http.get<Pais>(url);
   }
 
-  getPaisesPorNombre(nombre:string): Observable<Pais[]>{
-    const url = `${this.baseUrl}/${this.endpointNombre}/${nombre}`;
+  /*Se realiza una busqueda en la api con los paises que coincidan con el nombre
+    Se usa en el componente nombre*/
+  getPaisesPorNombre(nombre: string): Observable<Pais[]> {
+    const url = `${BASE_URL_API_PAISES}/${ENDPOINT_NOMBRE_API_PAISES}/${nombre}`;
     return this.http.get<Pais[]>(url);
   }
 
-  getPaisesPorRegion(nombre:string): Observable<Pais[]>{
-    const url = `${this.baseUrl}/${this.endpointRegion}/${nombre}`;
+  /*Se realiza una busqueda en la api con los paises en una misma region
+    Se usa en el componente region*/
+  getPaisesPorRegion(nombre: string): Observable<Pais[]> {
+    const url = `${BASE_URL_API_PAISES}/${ENDPOINT_REGION_API_PAISES}/${nombre}`;
     return this.http.get<Pais[]>(url);
   }
 
-  getPaisesPorSubRegion(nombre:string): Observable<Pais[]>{
-    const url = `${this.baseUrl}/${this.endpointSubregion}/${nombre}`;
+  /*Se realiza una busqueda en la api con los paises en una misma subregion
+    Se usa en el componente subregion*/
+  getPaisesPorSubRegion(nombre: string): Observable<Pais[]> {
+    const url = `${BASE_URL_API_PAISES}/${ENDPOINT_SUBREGION_API_PAISES}/${nombre}`;
     return this.http.get<Pais[]>(url);
   }
 
-  cargarSubregiones(): Observable<string[]>{
-    let subregiones = new Observable<string[]> (observer => observer.next(SUBREGIONES));
+  /*Se cargan subregiones de la constante SUBREGIONES
+    Se usa en el componente pais-buscar para el autocompletado*/
+  cargarSubregiones(): Observable<subregion[]> {
+    let subregiones = new Observable<subregion[]>((observer) =>
+      observer.next(SUBREGIONES)
+    );
     return subregiones;
   }
 
-  cargarRegiones():Observable<string[]>{
-    let regiones = new Observable<string[]> (observer => observer.next(REGIONES));
+  /*Se cargan regiones de la constante REGIONES
+    Se usa en el componente pais-buscar para el autocompletado*/
+  cargarRegiones(): Observable<region[]> {
+    let regiones = new Observable<region[]>((observer) =>
+      observer.next(REGIONES)
+    );
     return regiones;
   }
-
 }

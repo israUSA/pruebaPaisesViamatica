@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Pais } from '../../interfaces/pais.interface';
+import { Pais } from '../../pais/interfaces/pais.interface';
 
 @Component({
   selector: 'app-pais-tabla',
@@ -8,5 +8,6 @@ import { Pais } from '../../interfaces/pais.interface';
 })
 export class PaisTablaComponent {
   @Input() paisesLista: Pais[]  = [];
+  numeroResultados:number = 5;
 
 }

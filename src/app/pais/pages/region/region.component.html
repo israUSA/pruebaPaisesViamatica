@@ -4,27 +4,18 @@
       class="col-md-6"
       [placeHolder]="placeHolder"
       (onEnter)="buscarPaisesPorRegion($event)"
-      (onDebounce)="sugerencias($event)"
+      (onDebounce)="buscarPaisesPorRegion($event)"
     ></app-pais-buscar>
   </div>
-  <ol class="list-group list-group-numbered">
-    <li
-      *ngFor="let region of regiones"
-      (click)="buscarPaisesPorRegion(region)"
-      class="list-group-item list-group-item-action"
-    >
-      {{ region | paisPipe }}
-    </li>
-  </ol>
 
   <hr />
   <div *ngIf="hayError" class="alert alert-danger">
     No se encontro nada con el termino {{ queryBusqueda }}
   </div>
-  <div class="flex-fill mt-4">
+  <div class="grid mt-4" *ngIf="!hayError">
     <app-pais-tabla
       [paisesLista]="paisesLista"
-      class="col-md-12"
+      class="md:col-6 lg:mx-auto "
     ></app-pais-tabla>
   </div>
 </div>

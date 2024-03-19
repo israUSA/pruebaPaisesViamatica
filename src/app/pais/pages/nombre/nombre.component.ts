@@ -14,9 +14,7 @@ export class NombreComponent {
   placeHolder:string = 'Ingresa el nombre de un pais :)'
   hayError:boolean = false;
   paisesLista: Pais[] = [];
-  paisesSugeridos:Pais[] = [];
   queryBusqueda:string = '';
-  numeroDeSugerencias:number = 10;
 
   buscarPaises(nombre:string){
     this.hayError = false;
@@ -35,18 +33,16 @@ export class NombreComponent {
 
   }
 
-  sugerencias(nombre:string){
+  llenarTabla(nombre:string){
     this.hayError = false;
     this.paisService.getPaisesPorNombre(nombre)
     .subscribe(
       {
       next:  (paises) => {
         this.paisesLista = paises;
-        this.paisesSugeridos = paises.slice(0,this.numeroDeSugerencias);
       },
 
      error: (error) => {
-        this.paisesSugeridos = [];
         console.log("Error:", error)
       },
     }
